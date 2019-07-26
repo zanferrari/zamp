@@ -9,6 +9,8 @@ Double click the zamp.hta file to start Apache webserver and MySql database serv
 
 Apache runs behind port 80 and mysql behind 3306.
 
+The document root is C:\zamp\root.
+
 Open a browser and type localhost. You should get a phpinfo() report.
 
 MySql user is "root" and password is "zamp" (without quotes).
