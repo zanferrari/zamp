@@ -1,5 +1,5 @@
 # zamp
-Apache (2.4.39) MariaDb (10.4) Php (7.3.7) webserver
+"Zanfi" Apache (2.4.39) MariaDb (10.4) Php (7.3.7) webserver
 
 This webserver runs as standalone as default in a directory. Make in the root of the C: a directory named zamp and put the content in it. This is a development environment. Do not use it for production.
 
