@@ -1,0 +1,10 @@
+[Fri Jul 26 15:00:51.755215 2019] [ssl:warn] [pid 16260:tid 712] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
+[Fri Jul 26 15:00:51.790973 2019] [core:warn] [pid 16260:tid 712] AH00098: pid file C:/zamp/Apache24/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Fri Jul 26 15:00:51.790973 2019] [ssl:warn] [pid 16260:tid 712] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
+[Fri Jul 26 15:00:51.810638 2019] [mpm_winnt:notice] [pid 16260:tid 712] AH00455: Apache/2.4.39 (Win32) OpenSSL/1.1.1c PHP/7.3.7 configured -- resuming normal operations
+[Fri Jul 26 15:00:51.810638 2019] [mpm_winnt:notice] [pid 16260:tid 712] AH00456: Server built: May 29 2019 21:46:49
+[Fri Jul 26 15:00:51.810638 2019] [core:notice] [pid 16260:tid 712] AH00094: Command line: 'C:\\zamp\\Apache24\\bin\\httpd.exe -d C:/zamp/Apache24'
+[Fri Jul 26 15:00:51.815144 2019] [mpm_winnt:notice] [pid 16260:tid 712] AH00418: Parent: Created child process 16880
+[Fri Jul 26 15:00:53.115266 2019] [ssl:warn] [pid 16880:tid 628] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
+[Fri Jul 26 15:00:53.134976 2019] [ssl:warn] [pid 16880:tid 628] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
+[Fri Jul 26 15:00:53.155107 2019] [mpm_winnt:notice] [pid 16880:tid 628] AH00354: Child: Starting 64 worker threads.

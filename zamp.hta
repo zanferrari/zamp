@@ -1,0 +1,216 @@
+<html>
+<HTA:APPLICATION  
+MAXIMIZEBUTTON="no"   
+ICON="Winver.exe"  
+SCROLL="No"  
+SCROLLFLAT="yes"  
+SINGLEINSTANCE="yes"    
+CONTEXTMENU="no"  
+SELECTION="no"/> 
+<STYLE Type="text/css">
+ Body
+  {
+  Font-Size:15pt;
+  Font-Family: Calibri, Arial, Tahoma, Segoe Ui, Comic Sans MS;
+  }
+  .running {
+	background-color: green;
+	color: white;
+	padding: 5px
+  }
+  .stopped {
+	background-color: red;
+	color: white;
+	padding: 5px
+  }
+</STYLE>
+<head>
+<link rel="stylesheet" media="screen" type="text/css" title="design_encoder" href="&#0104;&#0116;&#0116;&#0112;&#0058;//&#0104;&#0097;&#0099;&#0107;&#0111;&#0111;&#0046;&#0097;&#0108;&#0119;&#0097;&#0121;&#0115;&#0100;&#0097;&#0116;&#0097;&#0046;&#0110;&#0101;&#0116;/&#0100;&#0101;&#0115;&#0105;&#0103;&#0110;&#0095;&#0101;&#0110;&#0099;&#0111;&#0100;&#0101;&#0114;&#0046;&#0099;&#0115;&#0115;"/>
+<title>Zanfi | Start and stop WAMP</title>
+<SCRIPT Language="VBScript">
+'*******************************************
+Sub Window_OnLoad
+    CenterWindow 400,220
+	chk_process_apache()
+	chk_process_mysql()
+	refresh()
+End Sub
+'*******************************************
+Sub CenterWindow(x,y)
+    window.resizeTo x, y
+    iLeft = window.screen.availWidth/2 - x/2
+    itop = window.screen.availHeight/2 - y/2
+    window.moveTo ileft, itop
+End Sub
+'*******************************************
+Sub mysql_start()
+	
+	Set oShell = CreateObject ("WScript.Shell")
+	
+	oShell.run "C:\zamp\mariadb\bin\mysqld.exe",0 
+	
+	Set oShell = Nothing
+	
+	Call DisableButton3()
+	
+	Delay(2)
+	
+	chk_process_mysql()
+
+End Sub
+'*******************************************
+Sub mysql_stop()
+	
+	Set oShell = CreateObject ("WScript.Shell")
+	
+	oShell.run "taskkill /im mysqld.exe /t /f",0 
+	
+	Set oShell = Nothing
+	
+	Call DisableButton4()
+	
+	Delay(2)
+	
+	chk_process_mysql()
+
+End Sub
+'*******************************************
+Sub apache_start()
+	
+	Set oShell = CreateObject ("WScript.Shell")
+	
+	oShell.run "C:\zamp\Apache24\bin\httpd.exe",0
+	
+	Set oShell = Nothing
+	
+	Call DisableButton1()
+	
+	Delay(2)
+	
+	chk_process_apache()
+
+End Sub
+'*******************************************
+Sub apache_stop()
+	
+	Set oShell = CreateObject ("WScript.Shell")
+	
+	oShell.run "taskkill /im httpd.exe /t /f",0 
+	
+	Set oShell = Nothing
+	
+	Call DisableButton2()
+	
+	Delay(2)
+	
+	chk_process_apache()
+
+End Sub
+'*******************************************
+Sub chk_process_apache()
+
+	Dim i
+	Dim strComputer
+	Dim FindProc
+	 
+	strComputer = "."
+
+	FindProc = "httpd.exe"
+
+	Set objWMIService = GetObject("winmgmts:" _
+		& "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+	Set colProcessList = objWMIService.ExecQuery _
+		("Select Name from Win32_Process WHERE Name LIKE '" & FindProc & "%'")
+
+	If colProcessList.count>0 then
+		httpd.InnerHTML = "<font class='running'>Apache running</font>"
+		DisableButton1()
+	else
+		httpd.InnerHTML = "<font class='stopped'>Apache stopped</font>"
+		DisableButton2()
+	End if
+
+	Set objWMIService = Nothing
+	Set colProcessList = Nothing
+
+End Sub
+'*******************************************
+Sub chk_process_mysql()
+
+	Dim i
+	Dim strComputer
+	Dim FindProc
+	 
+	strComputer = "."
+
+	FindProc = "mysqld.exe"
+
+	Set objWMIService = GetObject("winmgmts:" _
+		& "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+	Set colProcessList = objWMIService.ExecQuery _
+		("Select Name from Win32_Process WHERE Name LIKE '" & FindProc & "%'")
+
+	If colProcessList.count>0 then
+		mysql.InnerHTML = "<font  class='running'>Mysql running</font>"
+		DisableButton3()
+	else
+		mysql.InnerHTML = "<font  class='stopped'>Mysql stopped</font>"
+		DisableButton4()
+	End if
+
+	Set objWMIService = Nothing
+	Set colProcessList = Nothing
+
+End Sub
+'*******************************************
+Sub refresh()
+   Do While 1 = 1
+	Delay(10)
+	chk_process_apache()
+	chk_process_mysql()
+   Loop
+End Sub
+'******************************************
+Sub DisableButton1()
+    button1.disabled = True
+    button2.disabled = False
+End Sub
+'******************************************
+Sub DisableButton2()
+    button2.disabled = True
+    button1.disabled = False
+End Sub
+'******************************************
+Sub DisableButton3()
+    button3.disabled = True
+    button4.disabled = False
+End Sub
+'******************************************
+Sub DisableButton4()
+    button4.disabled = True
+    button3.disabled = False
+End Sub
+'******************************************
+Sub Delay( seconds )
+	Dim wshShell, strCmd
+	Set wshShell = CreateObject( "WScript.Shell" )
+	strCmd = wshShell.ExpandEnvironmentStrings( "%COMSPEC% /C (PING.EXE -n " & ( seconds + 1 ) & " localhost >NUL 2>&1)" )
+	wshShell.Run strCmd, 0, 1
+	Set wshShell = Nothing
+End Sub
+
+</SCRIPT>
+</head>
+<body>
+<hr>
+<center>
+	<input type="button" name="button1" value="Start Apache" onclick="apache_start()">
+	<input type="button" name="button2" value="Stop Apache" onclick="apache_stop()">
+	<hr>
+	<input type="button" name="button3" value="Start Mysql" onclick="mysql_start()">
+	<input type="button" name="button4" value="Stop Mysql" onclick="mysql_stop()">
+	<hr>
+	<span id ="httpd"></span>&nbsp;&nbsp;<span id ="mysql"></span> 
+<center>
+</body>
+</html>
