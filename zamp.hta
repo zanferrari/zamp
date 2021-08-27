@@ -7,30 +7,42 @@ SCROLLFLAT="yes"
 SINGLEINSTANCE="yes"    
 CONTEXTMENU="no"  
 SELECTION="no"/> 
-<STYLE Type="text/css">
- Body
-  {
-  Font-Size:15pt;
-  Font-Family: Calibri, Arial, Tahoma, Segoe Ui, Comic Sans MS;
-  }
-  .running {
+<style Type="text/css">
+body {
+	font-size:15pt;
+	font-family: Calibri, Arial, Tahoma, Segoe Ui, Comic Sans MS;
+	background-color: #eaecee
+}
+.running {
 	background-color: green;
 	color: white;
 	padding: 5px
-  }
-  .stopped {
+}
+.stopped {
 	background-color: red;
 	color: white;
 	padding: 5px
-  }
-</STYLE>
+}
+.btn {
+	border: 0;
+	background: none;
+	box-shadow: none;
+	border-radius: 0px;
+	color: white;
+	background-color: #097969;
+	padding: 4px;
+	margin: 5px 2px
+}
+.btn_red {
+	background-color: #C70039
+}
+</style>
 <head>
-<link rel="stylesheet" media="screen" type="text/css" title="design_encoder" href="&#0104;&#0116;&#0116;&#0112;&#0058;//&#0104;&#0097;&#0099;&#0107;&#0111;&#0111;&#0046;&#0097;&#0108;&#0119;&#0097;&#0121;&#0115;&#0100;&#0097;&#0116;&#0097;&#0046;&#0110;&#0101;&#0116;/&#0100;&#0101;&#0115;&#0105;&#0103;&#0110;&#0095;&#0101;&#0110;&#0099;&#0111;&#0100;&#0101;&#0114;&#0046;&#0099;&#0115;&#0115;"/>
-<title>Zanfi | Start and stop WAMP</title>
-<SCRIPT Language="VBScript">
+<title>Zanfi | Start and stop ZAMP</title>
+<script Language="VBScript">
 '*******************************************
 Sub Window_OnLoad
-    CenterWindow 400,220
+    CenterWindow 450,270
 	chk_process_apache()
 	chk_process_mysql()
 	refresh()
@@ -75,14 +87,32 @@ Sub mysql_stop()
 
 End Sub
 '*******************************************
-Sub apache_start()
+Sub apache_start7()
 	
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run "C:\zamp\Apache24\bin\httpd.exe",0
+	oShell.run "C:\zamp\Apache24\bin\httpd.exe -D php7",0
 	
 	Set oShell = Nothing
 	
+	Call DisableButton1()
+	Call DisableButton5()
+	
+	Delay(2)
+	
+	chk_process_apache()
+
+End Sub
+'*******************************************
+Sub apache_start8()
+	
+	Set oShell = CreateObject ("WScript.Shell")
+	
+	oShell.run "C:\zamp\Apache24\bin\httpd.exe -D php8",0
+	
+	Set oShell = Nothing
+	
+	Call DisableButton5()
 	Call DisableButton1()
 	
 	Delay(2)
@@ -151,10 +181,10 @@ Sub chk_process_mysql()
 		("Select Name from Win32_Process WHERE Name LIKE '" & FindProc & "%'")
 
 	If colProcessList.count>0 then
-		mysql.InnerHTML = "<font  class='running'>Mysql running</font>"
+		mysql.InnerHTML = "<span  class='running'>Mysql running</span>"
 		DisableButton3()
 	else
-		mysql.InnerHTML = "<font  class='stopped'>Mysql stopped</font>"
+		mysql.InnerHTML = "<span  class='stopped'>Mysql stopped</span>"
 		DisableButton4()
 	End if
 
@@ -179,6 +209,7 @@ End Sub
 Sub DisableButton2()
     button2.disabled = True
     button1.disabled = False
+	button5.disabled = False
 End Sub
 '******************************************
 Sub DisableButton3()
@@ -191,6 +222,11 @@ Sub DisableButton4()
     button3.disabled = False
 End Sub
 '******************************************
+Sub DisableButton5()
+    button5.disabled = True
+    button3.disabled = False
+End Sub
+'******************************************
 Sub Delay( seconds )
 	Dim wshShell, strCmd
 	Set wshShell = CreateObject( "WScript.Shell" )
@@ -198,17 +234,17 @@ Sub Delay( seconds )
 	wshShell.Run strCmd, 0, 1
 	Set wshShell = Nothing
 End Sub
-
-</SCRIPT>
+</script>
 </head>
 <body>
 <hr>
 <center>
-	<input type="button" name="button1" value="Start Apache" onclick="apache_start()">
-	<input type="button" name="button2" value="Stop Apache" onclick="apache_stop()">
+	<input type="button" name="button1" value="Start Apache (Php 7)" onclick="apache_start7()" class="btn">
+	<input type="button" name="button5" value="Start Apache (Php 8)" onclick="apache_start8()" class="btn">
+	<input type="button" name="button2" value="Stop Apache" onclick="apache_stop()" class="btn btn_red">
 	<hr>
-	<input type="button" name="button3" value="Start Mysql" onclick="mysql_start()">
-	<input type="button" name="button4" value="Stop Mysql" onclick="mysql_stop()">
+	<input type="button" name="button3" value="Start Mysql" onclick="mysql_start()" class="btn">
+	<input type="button" name="button4" value="Stop Mysql" onclick="mysql_stop()" class="btn btn_red">
 	<hr>
 	<span id ="httpd"></span>&nbsp;&nbsp;<span id ="mysql"></span> 
 <center>

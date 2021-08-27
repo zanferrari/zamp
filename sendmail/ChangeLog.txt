@@ -1,5 +1,12 @@
+ 
+version 33 - Michel <Sendmail@dotmol.nl> (27 july 2020)
+    - Make the source compile in Embarcadero Delphi 10.3 with the default included Indy 10-260
+    - Needs install of http://madshi.net/index.htm (madExcept 5.1.0) in Delphi Builder
+    - Updated OpenSSL DLL's to 1.0.2u
+    - Forced TLS v1.1 & v1.2, don't allow v1.0
 
-  version 32 (18 june 2011)
+  Byron Jones:
+  version 32 - (18 june 2011)
     - fix handling of invalid recipients
 
   version 31 (15 sep, 2010)
