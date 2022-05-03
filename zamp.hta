@@ -40,6 +40,16 @@ body {
 <head>
 <title>Zanfi | Start and stop ZAMP</title>
 <script Language="VBScript">
+Set objShell = CreateObject("Wscript.Shell")
+strPath = objShell.CurrentDirectory
+
+dim filesys, filetxt, path
+Set filesys = CreateObject("Scripting.FileSystemObject")
+Set filetxt = filesys.CreateTextFile("extra-apache24.conf", True)
+path = filesys.GetAbsolutePathName("extra-apache24.conf")
+filetxt.WriteLine("Define STATIC_PATH """ & strPath & """")
+filetxt.Close
+
 '*******************************************
 Sub Window_OnLoad
     CenterWindow 450,270
@@ -59,7 +69,7 @@ Sub mysql_start()
 	
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run "C:\zamp\mariadb\bin\mysqld.exe",0 
+	oShell.run strPath & "\mariadb\bin\mysqld.exe",0 
 	
 	Set oShell = Nothing
 	
@@ -91,7 +101,7 @@ Sub apache_start7()
 	
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run "C:\zamp\Apache24\bin\httpd.exe -D php7",0
+	oShell.run strPath & "\Apache24\bin\httpd.exe -D php7",0
 	
 	Set oShell = Nothing
 	
@@ -108,7 +118,7 @@ Sub apache_start8()
 	
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run "C:\zamp\Apache24\bin\httpd.exe -D php8",0
+	oShell.run strPath & "\Apache24\bin\httpd.exe -D php8",0
 	
 	Set oShell = Nothing
 	
