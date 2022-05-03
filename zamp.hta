@@ -56,10 +56,10 @@ dim filesys1, filetxt1, path1
 Set filesys1 = CreateObject("Scripting.FileSystemObject")
 Set filetxt1 = filesys1.CreateTextFile("extra-my.conf", True)
 path1 = filesys1.GetAbsolutePathName("extra-my.conf")
-filetxt1.WriteLine("datadir = " & strPath & "/mariadb/data")
-filetxt1.WriteLine("innodb_data_home_dir = " & strPath & "/mariadb/data")
+filetxt1.WriteLine("datadir = " & strPath & "\mariadb\data")
+filetxt1.WriteLine("innodb_data_home_dir = " & strPath & "\mariadb\data")
 filetxt1.WriteLine("innodb_data_file_path = ibdata1:10M:autoextend")
-filetxt1.WriteLine("innodb_log_group_home_dir = " & strPath & "/mariadb/data")
+filetxt1.WriteLine("innodb_log_group_home_dir = " & strPath & "\mariadb\data")
 filetxt1.Close
 
 '*******************************************
