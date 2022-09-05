@@ -41,6 +41,7 @@ body {
 <title>Zanfi | Start and stop ZAMP</title>
 <script Language="VBScript">
 Set objShell = CreateObject("Wscript.Shell")
+
 strPath = objShell.CurrentDirectory
 
 '************* static path Apache **********
@@ -49,6 +50,7 @@ Set filesys = CreateObject("Scripting.FileSystemObject")
 Set filetxt = filesys.CreateTextFile("extra-apache24.conf", True)
 path = filesys.GetAbsolutePathName("extra-apache24.conf")
 filetxt.WriteLine("Define STATIC_PATH """ & strPath & """")
+filetxt.WriteLine("php_admin_value sendmail_path """ & strPath & "\sendmail\sendmail.exe""")
 filetxt.Close
 
 '************* static path Mariadb *********
