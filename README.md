@@ -1,5 +1,5 @@
 # zamp
-"Zanfi" Apache (2.4.39) MariaDb (10.4) Php (7.4.28 and 8.1.4) webserver
+"Zanfi" Apache (2.4.39) MariaDb (10.4) Php (7.4.30 and 8.1.10) webserver
 
 This webserver runs as standalone in a directory. Make a directory put the content in it. This is a development environment. Do not use it for production.
 
