@@ -19,7 +19,7 @@ Mail is sent through **Sendmail** (you have to update the .ini file with your cr
 
 ~~You can modify the settings of the .ini files in:~~
 
-~~Sendmail : {yourDrive}:\{yourCreatedDir}\Sendmail\sendmail.ini
+~~Sendmail : {yourDrive}:\{yourCreatedDir}\Sendmail\sendmail.ini~~
 
 ~~Php: {yourDrive}:\{yourCreatedDir}\php\php.ini~~
 
