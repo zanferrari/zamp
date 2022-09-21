@@ -52,6 +52,40 @@
  */
 #if _MSC_VER
 #   if _MSC_VER == 1200 /* (Visual Studio 6) */
+#   define MSVC_COMPILER "Visual Studio 6 (VC6)"
+#   elif _MSC_VER == 1300 /* (Visual Studio .Net) */
+#   define MSVC_COMPILER "Visual Studio .Net (VC7)"
+#   elif _MSC_VER == 1310 /* (Visual Studio .Net 2003) */
+#   define MSVC_COMPILER "Visual Studio .Net 2003 (VC7.5)"
+#   elif _MSC_VER == 1400 /* (Visual Studio 2005) */
+#   define MSVC_COMPILER "Visual Studio 2005 (VC8)"
+#   elif _MSC_VER == 1500 /* (Visual Studio 2008) */
+#   define MSVC_COMPILER "Visual Studio 2008 (VC9)"
+#   elif _MSC_VER == 1600 /* (Visual Studio 2010) */
+#   define MSVC_COMPILER "Visual Studio 2010 (VC10)"
+#   elif _MSC_VER == 1700 /* (Visual Studio 2012) */
+#   define MSVC_COMPILER "Visual Studio 2012 (VC11)"
+#   elif _MSC_VER == 1800 /* (Visual Studio 2013) */
+#   define MSVC_COMPILER "Visual Studio 2013 (VC12)"
+#   elif _MSC_VER == 1900 /* (Visual Studio 2015) */
+#   define MSVC_COMPILER "Visual Studio 2015 (VC14)"
+#   elif _MSC_VER > 1900 && _MSC_VER < 1920 /* (Visual Studio 2017) */
+#   define MSVC_COMPILER "Visual Studio 2017 (VS15)"
+#   elif _MSC_VER >= 1920 && _MSC_VER < 1930 /* (Visual Studio 2019) */
+#   define MSVC_COMPILER "Visual Studio 2019 (VS16)"
+#   elif _MSC_VER >= 1930 && _MSC_VER < 1940 /* (Visual Studio 2022) */
+#   define MSVC_COMPILER "Visual Studio 2022 (VS17)"
+#   endif
+#endif
+
+/* With all the different binary packages from third parties available 
+ * using many different versions of Visual Studio, it would be nice to
+ * allow the user to know just which compiler the server was built on
+ * allowing them to make a more informed choice when finding third party
+ * modules to extend their server. 
+ */
+#if _MSC_VER
+#   if _MSC_VER == 1200 /* (Visual Studio 6) */
 #   define MSVC_COMPILER "Visual Studio 6"
 #   elif _MSC_VER == 1300 /* (Visual Studio .Net) */
 #   define MSVC_COMPILER "Visual Studio .Net"
@@ -69,8 +103,6 @@
 #   define MSVC_COMPILER "Visual Studio 2013"
 #   elif _MSC_VER == 1900 /* (Visual Studio 2015) */
 #   define MSVC_COMPILER "Visual Studio 2015"
-#   elif _MSC_VER > 1900 && _MSC_VER < 1920 /* (Visual Studio 2017) */
-#   define MSVC_COMPILER "Visual Studio 2017"
 #   endif
 #endif
 
@@ -123,9 +155,6 @@ typedef enum {
 } ap_dlltoken_e;
 
 FARPROC ap_load_dll_func(ap_dlltoken_e fnLib, char* fnName, int ordinal);
-
-PSECURITY_ATTRIBUTES GetNullACL(void);
-void CleanNullACL(void *sa);
 
 #define AP_DECLARE_LATE_DLL_FUNC(lib, rettype, calltype, fn, ord, args, names) \
     typedef rettype (calltype *ap_winapi_fpt_##fn) args; \

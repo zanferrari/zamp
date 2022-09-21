@@ -1,24 +1,11 @@
-[Tue May 03 13:48:54.548925 2022] [ssl:warn] [pid 1496:tid 668] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
-[Tue May 03 13:48:54.605206 2022] [core:warn] [pid 1496:tid 668] AH00098: pid file C:/Users/gza/Documents/GitHub/zamp/Apache24/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
-[Tue May 03 13:48:54.609196 2022] [ssl:warn] [pid 1496:tid 668] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
-PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/zamp/php/ext\\curl (The specified module could not be found), C:/zamp/php/ext\\php_curl.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'fileinfo' (tried: C:/zamp/php/ext\\fileinfo (The specified module could not be found), C:/zamp/php/ext\\php_fileinfo.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'gd2' (tried: C:/zamp/php/ext\\gd2 (The specified module could not be found), C:/zamp/php/ext\\php_gd2.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'mbstring' (tried: C:/zamp/php/ext\\mbstring (The specified module could not be found), C:/zamp/php/ext\\php_mbstring.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: C:/zamp/php/ext\\mysqli (The specified module could not be found), C:/zamp/php/ext\\php_mysqli.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'openssl' (tried: C:/zamp/php/ext\\openssl (The specified module could not be found), C:/zamp/php/ext\\php_openssl.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_mysql' (tried: C:/zamp/php/ext\\pdo_mysql (The specified module could not be found), C:/zamp/php/ext\\php_pdo_mysql.dll (The specified module could not be found)) in Unknown on line 0
-[Tue May 03 13:48:54.725633 2022] [mpm_winnt:notice] [pid 1496:tid 668] AH00455: Apache/2.4.39 (Win32) OpenSSL/1.1.1c PHP/8.1.4 configured -- resuming normal operations
-[Tue May 03 13:48:54.725633 2022] [mpm_winnt:notice] [pid 1496:tid 668] AH00456: Server built: May 29 2019 21:46:49
-[Tue May 03 13:48:54.725633 2022] [core:notice] [pid 1496:tid 668] AH00094: Command line: 'C:\\Users\\gza\\Documents\\GitHub\\zamp\\Apache24\\bin\\httpd.exe -d C:/Users/gza/Documents/GitHub/zamp/Apache24 -D php8'
-[Tue May 03 13:48:54.728571 2022] [mpm_winnt:notice] [pid 1496:tid 668] AH00418: Parent: Created child process 2612
-[Tue May 03 13:48:59.983508 2022] [ssl:warn] [pid 2612:tid 656] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
-[Tue May 03 13:49:00.053318 2022] [ssl:warn] [pid 2612:tid 656] AH01909: localhost.tld:443:0 server certificate does NOT include an ID which matches the server name
-PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/zamp/php/ext\\curl (The specified module could not be found), C:/zamp/php/ext\\php_curl.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'fileinfo' (tried: C:/zamp/php/ext\\fileinfo (The specified module could not be found), C:/zamp/php/ext\\php_fileinfo.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'gd2' (tried: C:/zamp/php/ext\\gd2 (The specified module could not be found), C:/zamp/php/ext\\php_gd2.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'mbstring' (tried: C:/zamp/php/ext\\mbstring (The specified module could not be found), C:/zamp/php/ext\\php_mbstring.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: C:/zamp/php/ext\\mysqli (The specified module could not be found), C:/zamp/php/ext\\php_mysqli.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'openssl' (tried: C:/zamp/php/ext\\openssl (The specified module could not be found), C:/zamp/php/ext\\php_openssl.dll (The specified module could not be found)) in Unknown on line 0
-PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_mysql' (tried: C:/zamp/php/ext\\pdo_mysql (The specified module could not be found), C:/zamp/php/ext\\php_pdo_mysql.dll (The specified module could not be found)) in Unknown on line 0
-[Tue May 03 13:49:00.133412 2022] [mpm_winnt:notice] [pid 2612:tid 656] AH00354: Child: Starting 64 worker threads.
+[Wed Sep 21 12:55:03.231506 2022] [mpm_winnt:notice] [pid 15416:tid 476] AH00455: Apache/2.4.54 (Win32) OpenSSL/1.1.1p PHP/8.1.10 configured -- resuming normal operations
+[Wed Sep 21 12:55:03.231506 2022] [mpm_winnt:notice] [pid 15416:tid 476] AH00456: Server built: Jun 23 2022 16:43:03
+[Wed Sep 21 12:55:03.231506 2022] [core:notice] [pid 15416:tid 476] AH00094: Command line: 'C:\\zamp\\Apache24\\bin\\httpd.exe -d C:/zamp/Apache24 -D php8'
+[Wed Sep 21 12:55:04.471726 2022] [mpm_winnt:notice] [pid 15416:tid 476] AH00418: Parent: Created child process 19792
+[Wed Sep 21 12:55:06.231600 2022] [mpm_winnt:notice] [pid 19792:tid 480] AH00354: Child: Starting 64 worker threads.
+[Wed Sep 21 14:00:24.277849 2022] [core:warn] [pid 13984:tid 476] AH00098: pid file C:/zamp/Apache24/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Wed Sep 21 14:00:24.571461 2022] [mpm_winnt:notice] [pid 13984:tid 476] AH00455: Apache/2.4.54 (Win32) OpenSSL/1.1.1p PHP/7.4.30 configured -- resuming normal operations
+[Wed Sep 21 14:00:24.571461 2022] [mpm_winnt:notice] [pid 13984:tid 476] AH00456: Server built: Jun 23 2022 16:43:03
+[Wed Sep 21 14:00:24.571461 2022] [core:notice] [pid 13984:tid 476] AH00094: Command line: 'C:\\zamp\\Apache24\\bin\\httpd.exe -d C:/zamp/Apache24 -D php7'
+[Wed Sep 21 14:00:24.571461 2022] [mpm_winnt:notice] [pid 13984:tid 476] AH00418: Parent: Created child process 21484
+[Wed Sep 21 14:00:25.868141 2022] [mpm_winnt:notice] [pid 21484:tid 480] AH00354: Child: Starting 64 worker threads.
