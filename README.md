@@ -1,5 +1,5 @@
 # zamp webserver (standalone)
-"Zanfi" **Apache** (2.4.39) **MariaDb** (10.4) **Php** (7.4.30 and 8.1.10) webserver
+"Zanfi" **Apache** (2.4.54) **MariaDb** (10.4) **Php** (7.4.30 and 8.1.10) webserver
 
 This **webserver** runs as **standalone** in a directory even in a memory thumb. Make a directory put the content in it. This is a development environment. Do not use it for production.
 
