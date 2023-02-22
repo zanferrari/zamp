@@ -44,6 +44,37 @@ Set objShell = CreateObject("Wscript.Shell")
 
 strPath = objShell.CurrentDirectory
 
+'************ add paths to environment **********
+'************ avoid failing loading modules *****
+strPathAdd = strPath & "\php8"
+strPathAdd1 = strPath & "\php"
+
+Set objEnv = objShell.Environment("USER")
+flag = false
+
+For Each strVar In objEnv
+	If InStr(strVar,strPathAdd) > 0 Then
+		flag = true
+		Exit For
+	End If
+Next
+
+If flag = false Then
+	'Get the current value of Path
+	oldSystemPath = objEnv("PATH")
+	'Build the new Path
+	newSystemPath = oldSystemPath & ";" & strPathAdd & ";" & strPathAdd1
+	'Set the new Path
+	objEnv("PATH") = newSystemPath
+	Msg = "PATH variable added, please relaunch zamp.hta"
+	Style = vbOKOnly
+	Title = "PATH variable"
+	response = MsgBox(Msg, Style, Title)
+	If Response = vbOk Then
+		Window.Close
+	End If
+End If
+
 '************* static path Apache **********
 dim filesys, filetxt, path
 Set filesys = CreateObject("Scripting.FileSystemObject")
