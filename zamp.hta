@@ -40,40 +40,82 @@ body {
 <head>
 <title>Zanfi | Start and stop ZAMP</title>
 <script Language="VBScript">
-Set objShell = CreateObject("Wscript.Shell")
+'************ folders of the 2 php versions **********
+php8 = "php8"
+php8_2 = "php8_2"
 
+Set objShell = CreateObject("Wscript.Shell")
 strPath = objShell.CurrentDirectory
 
-'************ add paths to environment **********
+'************ add runtime paths to environment **********
 '************ avoid failing loading modules *****
-strPathAdd = strPath & "\php8"
-strPathAdd1 = strPath & "\php"
+strPathAdd = strPath & "\" & php8
+strPathAdd1 = strPath & "\" & php8_2
 
-Set objEnv = objShell.Environment("USER")
-flag = false
+Sub Upd_Path_Ini(php_ver)
 
-For Each strVar In objEnv
-	If InStr(strVar,strPathAdd) > 0 Then
-		flag = true
-		Exit For
+	Const ForReading = 1
+	Const ForWriting = 2
+
+	' Specify the path to the file you want to modify
+	filePath = strPath & "\" & php_ver & "\php-skeleton.ini"
+	' ini file with modified extenion_dir
+	destinationFilePath = strPath & "\" & php_ver & "\php.ini"
+
+	' Specify the string you want to find and the replacement string
+	stringToFind = "@ext@"
+	replacementString = strPath & "\" & php_ver & "\ext"
+
+	Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+	' Check if the file exists
+	If objFSO.FileExists(filePath) Then
+		' Read the file
+		Set objFile = objFSO.OpenTextFile(filePath, ForReading, False)
+		fileContent = objFile.ReadAll
+		objFile.Close
+
+		' Replace the string
+		fileContent = Replace(fileContent, stringToFind, replacementString)
+
+	Else
+		MsgBox("File read not found: " & filePath)
 	End If
-Next
 
-If flag = false Then
-	'Get the current value of Path
-	oldSystemPath = objEnv("PATH")
-	'Build the new Path
-	newSystemPath = oldSystemPath & ";" & strPathAdd & ";" & strPathAdd1
-	'Set the new Path
-	objEnv("PATH") = newSystemPath
-	Msg = "PATH variable added, please relaunch zamp.hta"
-	Style = vbOKOnly
-	Title = "PATH variable"
-	response = MsgBox(Msg, Style, Title)
-	If Response = vbOk Then
-		Window.Close
+	If objFSO.FileExists(destinationFilePath) Then
+		' Write the modified content back to the ini file
+		Set objFile = objFSO.OpenTextFile(destinationFilePath, ForWriting, True)
+		objFile.Write fileContent
+		objFile.Close
+	Else
+		MsgBox("File write not found: " & filePath)
 	End If
-End If
+
+End Sub
+
+Sub Set_Path(php_ver)
+Exit Sub
+	Set objEnv = objShell.Environment("USER")
+
+	objEnv("PATH") = Replace(objEnv("PATH"), strPathAdd1, "")
+	objEnv("PATH") = Replace(objEnv("PATH"), strPathAdd, "")
+
+	objEnv("PATH") = objEnv("PATH") & ";" & strPath & "\" & php_ver
+
+	' Create a Shell object
+	Set WshShell = CreateObject("WScript.Shell")
+
+	' Specify the new PATH value
+	newPath = strPath & "\" & php_ver & ";"
+	newPathExt = "" & chr(34) & strPath & "\" & php_ver & "\ext" & chr(34) & ""
+
+	' Use setx to update the PATH variable and make it immediately available
+	WshShell.Run "cmd /C setx PATH """ & newPath & """ /M", 0, True
+
+	' Clean up
+	Set WshShell = Nothing
+
+End Sub
 
 '************* static path Apache **********
 dim filesys, filetxt, path
@@ -95,6 +137,7 @@ filetxt1.WriteLine("plugin-dir = " & strPath & "\mariadb/lib/plugin")
 filetxt1.WriteLine("innodb_data_home_dir = " & strPath & "\mariadb\data")
 filetxt1.WriteLine("innodb_data_file_path = ibdata1:12M:autoextend")
 filetxt1.WriteLine("innodb_log_group_home_dir = " & strPath & "\mariadb\data")
+filetxt1.WriteLine("query_cache_size = 16M")
 filetxt1.Close
 
 '*******************************************
@@ -122,7 +165,7 @@ Sub mysql_start()
 	
 	Call DisableButton3()
 	
-	Delay(2)
+	Delay(1)
 	
 	chk_process_mysql()
 
@@ -138,24 +181,30 @@ Sub mysql_stop()
 	
 	Call DisableButton4()
 	
-	Delay(2)
+	Delay(1)
 	
 	chk_process_mysql()
 
 End Sub
 '*******************************************
-Sub apache_start7()
+Sub apache_start82()
+
+	Set_Path(php8_2)
+
+	'''' UPDATE extension PATH in php.ini
+
+	Upd_Path_Ini(php8_2)
 	
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run strPath & "\Apache24\bin\httpd.exe -D php7",0
+	oShell.run strPath & "\Apache24\bin\httpd.exe -D " & php8_2,0
 	
 	Set oShell = Nothing
 	
 	Call DisableButton1()
 	Call DisableButton5()
 	
-	Delay(2)
+	Delay(1)
 	
 	chk_process_apache()
 
@@ -163,16 +212,22 @@ End Sub
 '*******************************************
 Sub apache_start8()
 	
+	Set_Path(php8)
+
+	'''' UPDATE extension PATH in php.ini
+
+	Upd_Path_Ini(php8)
+
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run strPath & "\Apache24\bin\httpd.exe -D php8",0
+	oShell.run strPath & "\Apache24\bin\httpd.exe -D " & php8,0
 	
 	Set oShell = Nothing
 	
 	Call DisableButton5()
 	Call DisableButton1()
 	
-	Delay(2)
+	Delay(1)
 	
 	chk_process_apache()
 
@@ -183,14 +238,16 @@ Sub apache_stop()
 	Set oShell = CreateObject ("WScript.Shell")
 	
 	oShell.run "taskkill /im httpd.exe /t /f",0 
-	
+
 	Set oShell = Nothing
 	
-	Call DisableButton2()
+	DisableButton2()
 	
-	Delay(2)
+	Delay(1)
 	
 	chk_process_apache()
+
+	window.close()
 
 End Sub
 '*******************************************
@@ -296,7 +353,7 @@ End Sub
 <body>
 <hr>
 <center>
-	<input type="button" name="button1" value="Start Apache (Php 7)" onclick="apache_start7()" class="btn">
+	<input type="button" name="button1" value="Start Apache (Php 8.2)" onclick="apache_start82()" class="btn">
 	<input type="button" name="button5" value="Start Apache (Php 8)" onclick="apache_start8()" class="btn">
 	<input type="button" name="button2" value="Stop Apache" onclick="apache_stop()" class="btn btn_red">
 	<hr>
