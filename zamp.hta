@@ -9,19 +9,17 @@ CONTEXTMENU="no"
 SELECTION="no"/> 
 <style Type="text/css">
 body {
-	font-size:15pt;
+	font-size:13pt;
 	font-family: Calibri, Arial, Tahoma, Segoe Ui, Comic Sans MS;
 	background-color: #eaecee
 }
 .running {
-	background-color: green;
-	color: white;
-	padding: 5px
+	color: green;
+	padding: 2px
 }
 .stopped {
-	background-color: red;
-	color: white;
-	padding: 5px
+	color: red;
+	padding: 2px
 }
 .btn {
 	border: 0;
@@ -39,6 +37,7 @@ body {
 </style>
 <head>
 <title>Zanfi | Start and stop ZAMP</title>
+<meta http-equiv="x-ua-compatible" content="ie=9" />
 <script Language="VBScript">
 '************ folders of the 2 php versions **********
 php8 = "php8"
@@ -141,8 +140,8 @@ filetxt1.WriteLine("query_cache_size = 16M")
 filetxt1.Close
 
 '*******************************************
-Sub Window_OnLoad
-    CenterWindow 450,270
+Sub window_onload
+    CenterWindow 430,200
 	chk_process_apache()
 	chk_process_mysql()
 	refresh()
@@ -247,7 +246,7 @@ Sub apache_stop()
 	
 	chk_process_apache()
 
-	window.close()
+	'window.close()
 
 End Sub
 '*******************************************
@@ -318,10 +317,16 @@ End Sub
 Sub DisableButton1()
     button1.disabled = True
     button2.disabled = False
+	span2.style.display = "block"
+	span1.style.display = "none"
+	span5.style.display = "none"
 End Sub
 '******************************************
 Sub DisableButton2()
     button2.disabled = True
+	span2.style.display = "none"
+	span1.style.display = "inline-block"
+	span5.style.display = "inline-block"
     button1.disabled = False
 	button5.disabled = False
 End Sub
@@ -329,10 +334,14 @@ End Sub
 Sub DisableButton3()
     button3.disabled = True
     button4.disabled = False
+	span4.style.display = "block"
+	span3.style.display = "none"
 End Sub
 '******************************************
 Sub DisableButton4()
     button4.disabled = True
+	span4.style.display = "none"
+	span3.style.display = "block"
     button3.disabled = False
 End Sub
 '******************************************
@@ -351,16 +360,15 @@ End Sub
 </script>
 </head>
 <body>
-<hr>
 <center>
-	<input type="button" name="button1" value="Start Apache (Php 8.2)" onclick="apache_start82()" class="btn">
-	<input type="button" name="button5" value="Start Apache (Php 8)" onclick="apache_start8()" class="btn">
-	<input type="button" name="button2" value="Stop Apache" onclick="apache_stop()" class="btn btn_red">
+	<span id="span1"><input type="button" name="button1" value="Start Apache with Php 8.2" onclick="vbscript:apache_start82()" class="btn"></span>
+	<span id="span5"><input type="button" name="button5" value="Start Apache with Php 8" onclick="vbscript:apache_start8()" class="btn"></span>
+	<span id="span2"><input type="button" name="button2" value="Stop Apache" onclick="vbscript:apache_stop()" class="btn btn_red"></span>
 	<hr>
-	<input type="button" name="button3" value="Start Mysql" onclick="mysql_start()" class="btn">
-	<input type="button" name="button4" value="Stop Mysql" onclick="mysql_stop()" class="btn btn_red">
+	<span id="span3"><input type="button" name="button3" value="Start Mysql" onclick="vbscript:mysql_start()" class="btn"></span>
+	<span id="span4"><input type="button" name="button4" value="Stop Mysql" onclick="vbscript:mysql_stop()" class="btn btn_red"></span>
 	<hr>
-	<span id ="httpd"></span>&nbsp;&nbsp;<span id ="mysql"></span> 
+	Services status: <span id ="httpd"></span>&nbsp;-&nbsp;<span id ="mysql"></span> 
 <center>
 </body>
 </html>
