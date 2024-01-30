@@ -40,7 +40,7 @@ body {
 <meta http-equiv="x-ua-compatible" content="ie=9" />
 <script Language="VBScript">
 '************ folders of the 2 php versions **********
-php8 = "php8"
+php8_3 = "php8_3"
 php8_2 = "php8_2"
 
 Set objShell = CreateObject("Wscript.Shell")
@@ -48,7 +48,7 @@ strPath = objShell.CurrentDirectory
 
 '************ add runtime paths to environment **********
 '************ avoid failing loading modules *****
-strPathAdd = strPath & "\" & php8
+strPathAdd = strPath & "\" & php8_3
 strPathAdd1 = strPath & "\" & php8_2
 
 Sub Upd_Path_Ini(php_ver)
@@ -87,7 +87,7 @@ Sub Upd_Path_Ini(php_ver)
 		objFile.Write fileContent
 		objFile.Close
 	Else
-		MsgBox("File write not found: " & filePath)
+		MsgBox("File write not found: " & destinationFilePath)
 	End If
 
 End Sub
@@ -209,17 +209,17 @@ Sub apache_start82()
 
 End Sub
 '*******************************************
-Sub apache_start8()
+Sub apache_start83()
 	
-	Set_Path(php8)
+	Set_Path(php8_3)
 
 	'''' UPDATE extension PATH in php.ini
 
-	Upd_Path_Ini(php8)
+	Upd_Path_Ini(php8_3)
 
 	Set oShell = CreateObject ("WScript.Shell")
 	
-	oShell.run strPath & "\Apache24\bin\httpd.exe -D " & php8,0
+	oShell.run strPath & "\Apache24\bin\httpd.exe -D " & php8_3,0
 	
 	Set oShell = Nothing
 	
@@ -362,7 +362,7 @@ End Sub
 <body>
 <center>
 	<span id="span1"><input type="button" name="button1" value="Start Apache with Php 8.2" onclick="vbscript:apache_start82()" class="btn"></span>
-	<span id="span5"><input type="button" name="button5" value="Start Apache with Php 8" onclick="vbscript:apache_start8()" class="btn"></span>
+	<span id="span5"><input type="button" name="button5" value="Start Apache with Php 8.3" onclick="vbscript:apache_start83()" class="btn"></span>
 	<span id="span2"><input type="button" name="button2" value="Stop Apache" onclick="vbscript:apache_stop()" class="btn btn_red"></span>
 	<hr>
 	<span id="span3"><input type="button" name="button3" value="Start Mysql" onclick="vbscript:mysql_start()" class="btn"></span>
